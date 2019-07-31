@@ -1,0 +1,58 @@
+<%-include("./layouts/head.ejs")%>
+<div class="container mt-4 mb-4">
+  <div class="row">
+    <div class="col-sm-12 mt-2">
+      <h5 class="text-center mb-3">MY INCOME</h5>
+      <div class="table-responsive">
+        <table class="table table-xl text-center table-hover mt-5">
+          <thead>
+            <tr>
+              <th scope="col">NAMA</th>
+              <th scope="col">TOTAL</th>
+              <th scope="col">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (hut.length > 0) { %> <% for (let hutang of hut) { %>
+            <tr>
+              <th><%= hutang.nama %></th>
+              <td><%= hutang.total %></td>
+              <td colspan="2">
+                <form method="POST" action="/delete">
+                  <input
+                    type="hidden"
+                    value="<%= hutang._id %>"
+                    name="hutangId"
+                  />
+                  <button
+                    style="border:none"
+                    class="btn mr-3 text-dark"
+                    onclick="return confirm('Are You Sure?');"
+                  >
+                    <i class="fas fa-times fa-lg mr-3"></i>
+                  </button>
+                  <a class="text-dark" href="/edit/<%= hutang._id %>?edit=true"
+                    ><i class="fas fa-sync-alt fa-lg"></i
+                  ></a>
+                </form>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <h6 class="text-center">No Product</h6>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 bg-secodary mt-4 text-center">
+      <a class="text-dark" href="/add">
+        <i class="far fa-plus-square fa-3x"></i
+      ></a>
+    </div>
+  </div>
+</div>
+
+<%-include("./layouts/footer.ejs")%>
